@@ -528,6 +528,7 @@ fun PlaylistDetails(
                 onSendMediaInfo = viewModel::sendMediaReport,
                 onDeleteItem = viewModel::deleteItem,
                 onClickAddToQueue = { viewModel.addToQueue(it, 0) },
+                onClickPlayMusic = addToPlaylistViewModel::playMusic,
                 onShowOverview = {},
                 onChooseVersion = { _, _ -> },
                 onChooseTracks = {},
