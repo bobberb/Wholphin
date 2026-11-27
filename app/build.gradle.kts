@@ -34,7 +34,12 @@ val av1ModuleExists =
 val mpvModuleExists =
     providers.provider { project.file("libs/wholphin-mpv-release.aar").exists() }
 val extensionsRepoActive =
-    providers.provider { project.hasProperty("WholphinExtensionsUsername") }
+    // Must match the isNullOrBlank check in settings.gradle.kts: CI exports this as an
+    // empty string when the secret is unset, which would otherwise request the extension
+    // artifacts without the repository that serves them.
+    providers.provider {
+        !project.findProperty("WholphinExtensionsUsername")?.toString().isNullOrBlank()
+    }
 
 // See https://issuetracker.google.com/issues/402800800
 val isBuildingBundle =
